@@ -20,13 +20,10 @@ resource "aws_iam_openid_connect_provider" "github" {
     "sts.amazonaws.com"
   ]
 
-  thumbprint_list = [
-    "6938fd4d98bab03faadb97b34396831e3780aea1"
-  ]
 }
 
 resource "aws_iam_role" "github_oidc_role" {
-  name = "github-oidc-demo-role"
+  name = "github-oidc-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -53,4 +50,8 @@ resource "aws_iam_role" "github_oidc_role" {
 resource "aws_iam_role_policy_attachment" "github_s3_readonly" {
   role       = aws_iam_role.github_oidc_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
+
+output "github_oidc_role_arn" {
+  value = aws_iam_role.github_oidc_role.arn
 }
