@@ -20,7 +20,7 @@ jobs:
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::631478159968:role/github-oidc-role
+          role-to-assume: ${{ secrets.OIDC_GITHUB_ROLE }}
           aws-region: ap-south-1  # or your preferred region
 
       - name: Verify caller identity
@@ -29,8 +29,3 @@ jobs:
       # Example: list S3 buckets (if allowed)
       - name: List S3 buckets from account 631478159968
         run: aws s3 ls
-
-      - name: Additional steps
-        run: |
-          # Your commands that require AWS credentials
-          aws sts get-caller-identity
