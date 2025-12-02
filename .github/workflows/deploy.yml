@@ -28,5 +28,5 @@ jobs:
         run: aws sts get-caller-identity
 
       # Example: list S3 buckets (if allowed)
-      - name: List S3 buckets from account 631478159968
+      - name: List S3 buckets from account
         run: aws s3 ls
