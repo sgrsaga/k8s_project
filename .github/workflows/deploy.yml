@@ -37,8 +37,9 @@ jobs:
         env:
           ORG_ID: ${{ secrets.ORG_ID }}
           OIDC_ROLE_NAME: ${{ secrets.OIDC_ROLE_NAME }}
+          OIDC_FULL_ROLE_ARN: ${{ secrets.OIDC_FULL_ROLE }}
         with:
-          role-to-assume: arn:aws:iam::"${ORG_ID}":role/"${OIDC_ROLE_NAME}" 
+          role-to-assume: ${ env.OIDC_FULL_ROLE_ARN }
           aws-region: ap-south-1  # or your preferred region
 
 
