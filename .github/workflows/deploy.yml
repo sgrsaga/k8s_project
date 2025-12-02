@@ -12,15 +12,30 @@ permissions:
 jobs:
   aws-test:
     runs-on: ubuntu-latest
-
+    environment: >
+      ${{
+        startsWith(github.ref, 'refs/heads/prod') && 'prod' ||
+        startsWith(github.ref, 'refs/heads/release/') && 'ppe' ||
+        'dev'
+      }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: show environment
+        run: |
+          if [[ "${{ github.ref }}" == refs/heads/prod* ]]; then
+            echo "Environment: prod"
+          elif [[ "${{ github.ref }}" == refs/heads/release/* ]]; then
+            echo "Environment: ppe"
+          else
+            echo "Environment: dev"
+          fi
+
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::631478159968:role/github-oidc-role
+          role-to-assume: arn:aws:iam::${{ secrets.ORG_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
           aws-region: ap-south-1  # or your preferred region
 
       - name: Verify caller identity
