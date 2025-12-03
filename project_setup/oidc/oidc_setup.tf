@@ -37,11 +37,7 @@ resource "aws_iam_role" "github_oidc_role" {
         Condition = {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com",
-            "token.actions.githubusercontent.com:sub" = [
-              "repo:sgrsaga/k8s_project:environment:dev",
-              "repo:sgrsaga/k8s_project:environment:ppe",
-              "repo:sgrsaga/k8s_project:environment:prod",
-            ]
+            "token.actions.githubusercontent.com:sub" = "repo:sgrsaga/k8s_project:environment:dev"
           },
           StringLike = {
             "token.actions.githubusercontent.com:sub" = "repo:sgrsaga/k8s_project:ref:refs/heads/main",
