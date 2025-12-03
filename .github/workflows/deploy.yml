@@ -33,9 +33,11 @@ jobs:
           else
             echo "Environment: dev"
             echo "ENV : $ME_ENV"
+            echo "ENV : $NO_ENV"
           fi
         env:
           ME_ENV: ${{ secrets.OIDC_FULL_ROLE }}
+          NO_ENV: ${{ secrets.NOT_AVAILABLE }}
 
       # - name: Configure AWS credentials via OIDC
       #   uses: aws-actions/configure-aws-credentials@v4
