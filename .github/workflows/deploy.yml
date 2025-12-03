@@ -35,7 +35,7 @@ jobs:
             echo "ENV : $ME_ENV"
           fi
         env:
-          ME_ENV: ${{ env.ME }}
+          ME_ENV: ${{ secrets.OIDC_FULL_ROLE }}
 
       # - name: Configure AWS credentials via OIDC
       #   uses: aws-actions/configure-aws-credentials@v4
