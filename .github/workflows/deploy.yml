@@ -39,20 +39,20 @@ jobs:
           ME_ENV: ${{ secrets.OIDC_FULL_ROLE }}
           NO_ENV: ${{ secrets.NOT_AVAILABLE }}
 
-      # - name: Configure AWS credentials via OIDC
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   env:
-      #     ORG_ID: ${{ secrets.ORG_ID }}
-      #     OIDC_ROLE_NAME: ${{ secrets.OIDC_ROLE_NAME }}
-      #     OIDC_FULL_ROLE_ARN: ${{ secrets.OIDC_FULL_ROLE }}
-      #   with:
-      #     role-to-assume: arn:aws:iam::631478159968:role/github-oidc-role
-      #     aws-region: ap-south-1  # or your preferred region
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        env:
+          ORG_ID: ${{ secrets.ORG_ID }}
+          OIDC_ROLE_NAME: ${{ secrets.OIDC_ROLE_NAME }}
+          OIDC_FULL_ROLE_ARN: ${{ secrets.OIDC_FULL_ROLE }}
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.ORG_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
+          aws-region: ap-south-1  # or your preferred region
 
 
-      # - name: Verify caller identity
-      #   run: aws sts get-caller-identity
+      - name: Verify caller identity
+        run: aws sts get-caller-identity
 
-      # # Example: list S3 buckets (if allowed)
-      # - name: List S3 buckets from account
-      #   run: aws s3 ls
+      # Example: list S3 buckets (if allowed)
+      - name: List S3 buckets from account
+        run: aws s3 ls

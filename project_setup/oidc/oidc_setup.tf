@@ -40,6 +40,9 @@ resource "aws_iam_role" "github_oidc_role" {
           },
           StringLike = {
             "token.actions.githubusercontent.com:sub" = "repo:sgrsaga/k8s_project:ref:refs/heads/main"
+          },
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:sgrsaga/k8s_project:environment:dev"
           }
         }
       }
