@@ -26,26 +26,31 @@ jobs:
         run: |
           if [[ "${{ github.ref }}" == refs/heads/prod* ]]; then
             echo "Environment: prod"
+            echo "ENV : $ME_ENV"
           elif [[ "${{ github.ref }}" == refs/heads/release/* ]]; then
             echo "Environment: ppe"
+            echo "ENV : $ME_ENV"
           else
             echo "Environment: dev"
+            echo "ENV : $ME_ENV"
           fi
-
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v4
         env:
-          ORG_ID: ${{ secrets.ORG_ID }}
-          OIDC_ROLE_NAME: ${{ secrets.OIDC_ROLE_NAME }}
-          OIDC_FULL_ROLE_ARN: ${{ secrets.OIDC_FULL_ROLE }}
-        with:
-          role-to-assume: arn:aws:iam::631478159968:role/github-oidc-role
-          aws-region: ap-south-1  # or your preferred region
+          ME_ENV: ${{ env.ME }}
+
+      # - name: Configure AWS credentials via OIDC
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   env:
+      #     ORG_ID: ${{ secrets.ORG_ID }}
+      #     OIDC_ROLE_NAME: ${{ secrets.OIDC_ROLE_NAME }}
+      #     OIDC_FULL_ROLE_ARN: ${{ secrets.OIDC_FULL_ROLE }}
+      #   with:
+      #     role-to-assume: arn:aws:iam::631478159968:role/github-oidc-role
+      #     aws-region: ap-south-1  # or your preferred region
 
 
-      - name: Verify caller identity
-        run: aws sts get-caller-identity
+      # - name: Verify caller identity
+      #   run: aws sts get-caller-identity
 
-      # Example: list S3 buckets (if allowed)
-      - name: List S3 buckets from account
-        run: aws s3 ls
+      # # Example: list S3 buckets (if allowed)
+      # - name: List S3 buckets from account
+      #   run: aws s3 ls
