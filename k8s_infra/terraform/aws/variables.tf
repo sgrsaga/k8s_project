@@ -1,7 +1,7 @@
 
 variable "env" {
-  type        = string
-  default     = "dev"
+  type    = string
+  default = "dev"
 }
 
 ##### AWS VPC variables #####
@@ -75,52 +75,52 @@ variable "disk_size_system" {
 }
 
 variable "labels_system" {
-  type        = map(string)
-  default     = {
-    "node-role" = "system"
-    "environment" = "dev"
-    "terraform" = "true"
-    "karpenter.sh/discovery" = "demo-eks-karpenter"
+  type = map(string)
+  default = {
+    "node-role"                                = "system"
+    "environment"                              = "dev"
+    "terraform"                                = "true"
+    "karpenter.sh/discovery"                   = "demo-eks-karpenter"
     "kubernetes.io/cluster/demo-eks-karpenter" = "shared"
   }
   description = "Labels"
 }
 
 variable "taints_system" {
-  type        = list(map(string))
-  default     = [{
-        key    = "CriticalAddonsOnly"
-        value  = "true"
-        effect = "NO_SCHEDULE"
-      },
-      {
-        key    = "SystemAddonsOnly"
-        value  = "true"
-        effect = "NO_SCHEDULE"
-      }]
+  type = list(map(string))
+  default = [{
+    key    = "CriticalAddonsOnly"
+    value  = "true"
+    effect = "NO_SCHEDULE"
+    },
+    {
+      key    = "SystemAddonsOnly"
+      value  = "true"
+      effect = "NO_SCHEDULE"
+  }]
   description = "Taints"
 }
 
 variable "node_security_group_tags_system" {
-  type        = map(string)
-  default     = {
+  type = map(string)
+  default = {
     "karpenter.sh/discovery" = "demo-eks-karpenter"
   }
   description = "Node security group tags"
 }
 
 variable "tags_system" {
-  type        = map(string)
-  default     = {
+  type = map(string)
+  default = {
     "Environment" = "dev"
-    "Terraform" = "true"
+    "Terraform"   = "true"
   }
   description = "Tags"
 }
 
 variable "cluster_enabled_log_types" {
-  type        = list(string)
-  default     = [
+  type = list(string)
+  default = [
     "api",
     "audit",
     "authenticator",
