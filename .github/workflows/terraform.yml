@@ -68,6 +68,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: k8s_infra/terraform/aws
 
     steps:
     - name: Checkout code
