@@ -49,7 +49,7 @@ resource "aws_iam_role" "github_oidc_role" {
 
 resource "aws_iam_role_policy_attachment" "github_s3_readonly" {
   role       = aws_iam_role.github_oidc_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 output "github_oidc_role_arn" {
