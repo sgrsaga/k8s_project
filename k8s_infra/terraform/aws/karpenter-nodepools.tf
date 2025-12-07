@@ -10,8 +10,8 @@ resource "kubernetes_manifest" "karpenter_ec2_nodeclass_default" {
     "spec" = {
       "amiFamily" = "AL2"
 
-      "role"             = aws_iam_role.karpenter_node.arn
-      "instanceProfile"  = aws_iam_instance_profile.karpenter_node.name
+      "role"            = aws_iam_role.karpenter_node.arn
+      "instanceProfile" = aws_iam_instance_profile.karpenter_node.name
 
       # Select subnets and security groups by tags
       "subnetSelectorTerms" = [

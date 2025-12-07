@@ -16,7 +16,7 @@ resource "helm_release" "karpenter" {
   values = [
     yamlencode({
       settings = {
-        clusterName = var.cluster_name
+        clusterName     = var.cluster_name
         clusterEndpoint = data.aws_eks_cluster.this.endpoint
       }
 
