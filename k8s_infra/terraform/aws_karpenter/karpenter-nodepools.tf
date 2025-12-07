@@ -44,6 +44,7 @@ resource "kubernetes_manifest" "karpenter_ec2_nodeclass_default" {
   }
 
   depends_on = [
+    data.aws_eks_cluster.this,
     helm_release.karpenter
   ]
 }

@@ -2,6 +2,8 @@ resource "kubernetes_namespace" "karpenter" {
   metadata {
     name = "karpenter"
   }
+
+  depends_on = [module.eks]
 }
 
 resource "helm_release" "karpenter" {
@@ -17,7 +19,7 @@ resource "helm_release" "karpenter" {
     yamlencode({
       settings = {
         clusterName     = var.cluster_name
-        clusterEndpoint = data.aws_eks_cluster.this.endpoint
+        clusterEndpoint = module.eks.cluster_endpoint
       }
 
       serviceAccount = {
