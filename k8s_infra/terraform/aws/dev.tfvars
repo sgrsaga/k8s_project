@@ -21,8 +21,8 @@ labels_system = {
   environment = "dev"
   terraform   = "true"
 
-  "karpenter.sh/discovery"                   = "demo-eks-karpenter"
-  "kubernetes.io/cluster/demo-eks-karpenter" = "shared"
+  "karpenter.sh/discovery"     = "demo-eks-karpenter"
+  "cluster/demo-eks-karpenter" = "shared"
 }
 
 taints_system = [
