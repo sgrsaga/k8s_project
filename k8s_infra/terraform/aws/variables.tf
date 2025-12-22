@@ -1,125 +1,132 @@
-
 variable "env" {
   type    = string
   default = "dev"
 }
 
-##### AWS VPC variables #####
+# AWS VPC variables
 
 variable "aws_region" {
   type        = string
-  default     = "ap-south-1"
   description = "AWS region"
+  default     = "ap-south-1"
 }
 
 variable "public_subnets_cidr" {
   type        = list(string)
-  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
   description = "Public subnets CIDR"
+  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 }
 
 variable "private_subnets_cidr" {
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   description = "Private subnets CIDR"
+  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
-##### EKS cluster variables #####
+# EKS cluster variables
 
 variable "cluster_name" {
   type        = string
-  default     = "demo-eks-karpenter"
   description = "EKS cluster name"
+  default     = "demo-eks-karpenter"
 }
 
 variable "ami_type_system" {
   type        = string
-  default     = "AL2_x86_64"
   description = "AMI type"
+  default     = "AL2_x86_64"
 }
 
 variable "instance_types_system" {
   type        = list(string)
-  default     = ["m6i.large"]
   description = "Instance types"
+  default     = ["m6i.large"]
 }
 
 variable "capacity_type_system" {
   type        = string
-  default     = "ON_DEMAND"
   description = "Capacity type"
+  default     = "ON_DEMAND"
 }
 
 variable "min_size_system" {
   type        = number
-  default     = 2
   description = "Minimum size"
+  default     = 2
 }
 
 variable "max_size_system" {
   type        = number
-  default     = 3
   description = "Maximum size"
+  default     = 3
 }
 
 variable "desired_size_system" {
   type        = number
-  default     = 2
   description = "Desired size"
+  default     = 2
 }
 
 variable "disk_size_system" {
   type        = number
-  default     = 80
   description = "Disk size"
+  default     = 80
 }
 
 variable "labels_system" {
-  type = map(string)
-  default = {
-    "node-role"                                = "system"
-    "environment"                              = "dev"
-    "terraform"                                = "true"
-    "karpenter.sh/discovery"                   = "demo-eks-karpenter"
-    "cluster/demo-eks-karpenter"               = "shared"
-  }
+  type        = map(string)
   description = "Labels"
+
+  default = {
+    "node-role"                 = "system"
+    environment                 = "dev"
+    terraform                   = "true"
+    "karpenter.sh/discovery"    = "demo-eks-karpenter"
+    "cluster/demo-eks-karpenter" = "shared"
+  }
 }
 
 variable "taints_system" {
-  type = list(map(string))
-  default = [{
-    key    = "CriticalAddonsOnly"
-    value  = "true"
-    effect = "NO_SCHEDULE"
+  type        = list(map(string))
+  description = "Taints"
+
+  default = [
+    {
+      key    = "CriticalAddonsOnly"
+      value  = "true"
+      effect = "NO_SCHEDULE"
     },
     {
       key    = "SystemAddonsOnly"
       value  = "true"
       effect = "NO_SCHEDULE"
-  }]
-  description = "Taints"
+    },
+  ]
 }
 
 variable "node_security_group_tags_system" {
-  type = map(string)
+  type        = map(string)
+  description = "Node security group tags"
+
   default = {
     "karpenter.sh/discovery" = "demo-eks-karpenter"
   }
-  description = "Node security group tags"
 }
 
 variable "tags_system" {
-  type = map(string)
-  default = {
-    "Environment" = "dev"
-    "Terraform"   = "true"
-  }
+  type        = map(string)
   description = "Tags"
+
+  default = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
 }
 
 variable "cluster_enabled_log_types" {
-  type = list(string)
+  type        = list(string)
+  description = "Cluster enabled log types"
+
   default = [
     "api",
     "audit",
@@ -127,6 +134,4 @@ variable "cluster_enabled_log_types" {
     "controllerManager",
     "scheduler",
   ]
-  description = "Cluster enabled log types"
 }
-
