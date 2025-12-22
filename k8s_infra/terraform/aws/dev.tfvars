@@ -21,7 +21,7 @@ labels_system = {
   environment = "dev"
   terraform   = "true"
 
-  "karpenter.sh/discovery" = "demo-eks-karpenter"
+  "karpenter.sh/discovery"     = "demo-eks-karpenter"
   "cluster/demo-eks-karpenter" = "shared"
 }
 
