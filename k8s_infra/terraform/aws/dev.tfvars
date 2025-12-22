@@ -62,5 +62,5 @@ cluster_enabled_log_types = [
   "authenticator",
   "controllerManager",
   "scheduler",
-}
+]
 
