@@ -1,6 +1,5 @@
 
 env = "dev"
-}
 
 ##### AWS VPC variables #####
 
