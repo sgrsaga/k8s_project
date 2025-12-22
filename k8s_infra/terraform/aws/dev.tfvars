@@ -18,30 +18,30 @@ max_size_system = 3
 desired_size_system = 2
 disk_size_system = 80
 labels_system = {
-  "node-role"                                = "system"
-  "environment"                              = "dev"
-  "terraform"                                = "true"
-  "karpenter.sh/discovery"                   = "demo-eks-karpenter"
-  "kubernetes.io/cluster/demo-eks-karpenter" = "shared"
+  node-role                                  = system
+  environment                                = dev
+  terraform                                  = true
+  "karpenter.sh/discovery"                   = demo-eks-karpenter
+  "kubernetes.io/cluster/demo-eks-karpenter" = shared
 }
 taints_system = [
   {
-    key    = "CriticalAddonsOnly"
-    value  = "true"
-    effect = "NO_SCHEDULE"
+    key    = CriticalAddonsOnly
+    value  = true
+    effect = NO_SCHEDULE
   },
   {
-    key    = "SystemAddonsOnly"
-    value  = "true"
-    effect = "NO_SCHEDULE"
+    key    = SystemAddonsOnly
+    value  = true
+    effect = NO_SCHEDULE
   },
 ]
 node_security_group_tags_system = {
-  "karpenter.sh/discovery" = "demo-eks-karpenter"
+  "karpenter.sh/discovery" = demo-eks-karpenter
 }
 tags_system = {
-  "Environment" = "dev"
-  "Terraform"   = "true"
+  Environment = dev
+  Terraform   = true
 }
 cluster_enabled_log_types = [
   "api",
