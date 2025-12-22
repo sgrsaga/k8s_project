@@ -78,10 +78,10 @@ variable "labels_system" {
   description = "Labels"
 
   default = {
-    "node-role"                 = "system"
-    environment                 = "dev"
-    terraform                   = "true"
-    "karpenter.sh/discovery"    = "demo-eks-karpenter"
+    "node-role"                  = "system"
+    environment                  = "dev"
+    terraform                    = "true"
+    "karpenter.sh/discovery"     = "demo-eks-karpenter"
     "cluster/demo-eks-karpenter" = "shared"
   }
 }
