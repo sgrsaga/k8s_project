@@ -23,18 +23,18 @@ labels_system = {
   "cluster/demo-eks-karpenter" = "shared"
 }
 
-taints_system = [
-  {
+taints_system = {
+  CriticalAddonsOnly = {
     key    = "CriticalAddonsOnly"
     value  = "true"
     effect = "NO_SCHEDULE"
-  },
-  {
+  }
+  SystemAddonsOnly = {
     key    = "SystemAddonsOnly"
     value  = "true"
     effect = "NO_SCHEDULE"
-  },
-]
+  }
+}
 
 node_security_group_tags_system = {
   "karpenter.sh/discovery" = "demo-eks-karpenter"
