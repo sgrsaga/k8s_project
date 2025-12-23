@@ -23,10 +23,10 @@ provider "aws" {
 
 # Wait for EKS cluster to be fully ready before configuring Kubernetes provider
 # Using data source to ensure cluster exists and is accessible
-data "aws_eks_cluster" "this" {
-  name       = module.eks.cluster_name
-  depends_on = [module.eks]
-}
+# data "aws_eks_cluster" "this" {
+#   name       = module.eks.cluster_name
+#   depends_on = [module.eks]
+# }
 
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint

@@ -1,8 +1,3 @@
-variable "env" {
-  type    = string
-  default = "dev"
-}
-
 # AWS VPC variables
 
 variable "aws_region" {
