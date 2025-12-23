@@ -2,7 +2,11 @@ name: 'Terraform Check'
 
 on:
   push:
-    branches: [ "dev-*" ]
+    branches:
+      - "test*"
+  pull_request:
+    branches:
+      - "test*"
 
 permissions:
   contents: read
