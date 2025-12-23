@@ -14,8 +14,6 @@ module "eks" {
   cluster_endpoint_public_access  = false
   cluster_endpoint_private_access = true
 
-  public_access_cidrs = var.public_access_cidrs
-
   # Enable control plane logs
   cluster_enabled_log_types = var.cluster_enabled_log_types
 
