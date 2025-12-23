@@ -72,5 +72,4 @@ jobs:
       with:
         working_directory: ${{ env.TF_HOME_DIR }}
         github_token: ${{ env.GITHUB_TOKEN }}
-        additional_args: 
-          tfvars-file=${{ env.TFVARS_FILE }}
+        additional_args: --config-file=../.tfsec.yml
