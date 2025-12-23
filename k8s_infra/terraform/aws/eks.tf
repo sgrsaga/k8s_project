@@ -31,6 +31,8 @@ module "eks" {
 
       subnet_ids = module.vpc.private_subnets
 
+      cidr_blocks = var.private_subnets_cidr
+
       disk_size = var.disk_size_system
 
       labels = var.labels_system
