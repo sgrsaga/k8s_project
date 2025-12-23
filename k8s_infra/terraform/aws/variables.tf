@@ -130,9 +130,3 @@ variable "cluster_enabled_log_types" {
     "scheduler",
   ]
 }
-
-variable "public_access_cidrs" {
-  type        = list(string)
-  description = "Endpoint public access CIDRs"
-  default     = []
-}
