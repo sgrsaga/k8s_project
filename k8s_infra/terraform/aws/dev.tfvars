@@ -1,5 +1,3 @@
-env = "dev"
-
 # AWS VPC variables
 aws_region           = "ap-south-1"
 public_subnets_cidr  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
@@ -25,18 +23,18 @@ labels_system = {
   "cluster/demo-eks-karpenter" = "shared"
 }
 
-taints_system = [
-  {
+taints_system = {
+  CriticalAddonsOnly = {
     key    = "CriticalAddonsOnly"
     value  = "true"
     effect = "NO_SCHEDULE"
-  },
-  {
+  }
+  SystemAddonsOnly = {
     key    = "SystemAddonsOnly"
     value  = "true"
     effect = "NO_SCHEDULE"
-  },
-]
+  }
+}
 
 node_security_group_tags_system = {
   "karpenter.sh/discovery" = "demo-eks-karpenter"

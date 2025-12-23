@@ -1,8 +1,3 @@
-variable "env" {
-  type    = string
-  default = "dev"
-}
-
 # AWS VPC variables
 
 variable "aws_region" {
@@ -87,21 +82,25 @@ variable "labels_system" {
 }
 
 variable "taints_system" {
-  type        = list(map(string))
+  type = map(object({
+    key    = string
+    value  = string
+    effect = string
+  }))
   description = "Taints"
 
-  default = [
-    {
+  default = {
+    CriticalAddonsOnly = {
       key    = "CriticalAddonsOnly"
       value  = "true"
       effect = "NO_SCHEDULE"
-    },
-    {
+    }
+    SystemAddonsOnly = {
       key    = "SystemAddonsOnly"
       value  = "true"
       effect = "NO_SCHEDULE"
-    },
-  ]
+    }
+  }
 }
 
 variable "node_security_group_tags_system" {
@@ -135,3 +134,9 @@ variable "cluster_enabled_log_types" {
     "scheduler",
   ]
 }
+
+# variable "cluster_encryption_key_arn" {
+#   type        = string
+#   description = "Cluster encryption key ARN"
+#   default     = ""
+# }

@@ -1,0 +1,24 @@
+## 
+## Terraform Security Check Configuration
+
+# ## Severity Overrides
+# severity_overrides:
+#   aws-vpc-enable-flow-logs: HIGH
+#   aws-eks-enable-cluster-endpoint-public-access: HIGH
+#   aws-eks-enable-cluster-endpoint-private-access: HIGH
+
+## Minimum Severity
+minimum_severity: HIGH
+
+## Ignore Rules
+ignore_rules:
+  - aws-vpc-enable-flow-logs
+  # - aws-eks-enable-cluster-endpoint-public-access
+  # - aws-eks-enable-cluster-endpoint-private-access
+
+## Exclude Directories
+exclude_directories:
+  - .terraform
+
+exclude:
+  - aws-ec2-no-public-egress-sgr
