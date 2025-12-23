@@ -45,9 +45,8 @@
 name: 'Terraform'
 
 on:
-  push:
-    branches: [ "dev" ]
   pull_request:
+    branches: [ "dev" ]
 
 permissions:
   id-token: write       # <-- required for OIDC
@@ -114,6 +113,6 @@ jobs:
     # - name: Terraform Apply
     #   run: terraform apply -auto-approve tfplan
 
-    # Destroy
-    - name: Terraform Destroy
-      run: terraform destroy -auto-approve
+    # # Destroy
+    # - name: Terraform Destroy
+    #   run: terraform destroy -auto-approve
