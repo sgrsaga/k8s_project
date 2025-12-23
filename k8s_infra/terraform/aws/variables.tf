@@ -134,3 +134,9 @@ variable "cluster_enabled_log_types" {
     "scheduler",
   ]
 }
+
+# variable "cluster_encryption_key_arn" {
+#   type        = string
+#   description = "Cluster encryption key ARN"
+#   default     = ""
+# }

@@ -18,6 +18,12 @@ module "eks" {
   # Enable control plane logs
   enabled_log_types = var.cluster_enabled_log_types
 
+  # encryption_config = {
+  #   resources = var.cluster_enabled_log_types
+  #   provider {
+  #     key_arn = var.cluster_encryption_key_arn
+  #   }
+  # }
   # Small on-demand system node group
   eks_managed_node_groups = {
     system = {
