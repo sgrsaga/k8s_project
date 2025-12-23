@@ -52,3 +52,5 @@ cluster_enabled_log_types = [
   "controllerManager",
   "scheduler",
 ]
+
+public_access_cidrs = []

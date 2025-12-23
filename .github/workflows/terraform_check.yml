@@ -20,6 +20,7 @@ jobs:
     env:
       TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'prod.tfvars' || startsWith(github.ref, 'refs/heads/release/') && 'ppe.tfvars' || 'dev.tfvars' }}
       TF_HOME_DIR: k8s_infra/terraform/aws
+      GITHUB_TOKEN: ${{ github.token }}
 
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -70,3 +71,6 @@ jobs:
       uses: aquasecurity/tfsec-action@v1.0.3
       with:
         working_directory: ${{ env.TF_HOME_DIR }}
+        github_token: ${{ env.GITHUB_TOKEN }}
+        additional_args: 
+          tfvars-file=${{ env.TFVARS_FILE }}

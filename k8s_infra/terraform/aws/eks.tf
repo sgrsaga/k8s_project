@@ -11,8 +11,10 @@ module "eks" {
 
   enable_irsa = true
 
-  cluster_endpoint_public_access  = true
+  cluster_endpoint_public_access  = false
   cluster_endpoint_private_access = true
+
+  public_access_cidrs = var.public_access_cidrs
 
   # Enable control plane logs
   cluster_enabled_log_types = var.cluster_enabled_log_types
@@ -31,6 +33,8 @@ module "eks" {
 
       subnet_ids = module.vpc.private_subnets
 
+      cidr_blocks = module.vpc.private_subnets
+      
       disk_size = var.disk_size_system
 
       labels = var.labels_system

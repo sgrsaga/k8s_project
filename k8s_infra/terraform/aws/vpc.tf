@@ -14,6 +14,9 @@ module "vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
+  # -------- VPC Flow Logs --------
+  enable_flow_log     = true
+
   # Tags required for EKS and Karpenter
   tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
