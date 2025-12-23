@@ -82,21 +82,25 @@ variable "labels_system" {
 }
 
 variable "taints_system" {
-  type        = list(map(string))
+  type = map(object({
+    key    = string
+    value  = string
+    effect = string
+  }))
   description = "Taints"
 
-  default = [
-    {
+  default = {
+    CriticalAddonsOnly = {
       key    = "CriticalAddonsOnly"
       value  = "true"
       effect = "NO_SCHEDULE"
-    },
-    {
+    }
+    SystemAddonsOnly = {
       key    = "SystemAddonsOnly"
       value  = "true"
       effect = "NO_SCHEDULE"
-    },
-  ]
+    }
+  }
 }
 
 variable "node_security_group_tags_system" {

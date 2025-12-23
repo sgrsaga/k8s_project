@@ -4,15 +4,18 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.26.0"
+      # source = "git::https://github.com/hashicorp/terraform-provider-aws.git?ref=6332785f824190e00a78d2318750efb0c4bbabe4" # commit hash of version v6.26.0
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.30"
+      version = "~> 3.0.1"
+      # source = "git::https://github.com/hashicorp/terraform-provider-kubernetes.git?ref=8309126c965216bc854d62fd4596070f8169a0f7" # commit hash of version v3.0.1
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.12"
+      version = "~> 3.1.1"
+      # source = "git::https://github.com/hashicorp/terraform-provider-helm.git?ref=1cbf08f6a306ab3cdff6079b87a61c7641b64f3b" # commit hash of version v3.1.1
     }
   }
 }
