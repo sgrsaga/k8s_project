@@ -67,15 +67,15 @@ jobs:
       run: tflint --recursive
 
     # Optional: tfsec
-    - name: tfsec
-      uses: aquasecurity/tfsec-action@v1.0.3
-      with:
-        working_directory: ${{ env.TF_HOME_DIR }}
-        github_token: ${{ env.GITHUB_TOKEN }}
-        additional_args: --config-file=../.tfsec.yml
-
-    # - name: Checkov
-    #   uses: bridgecrewio/checkov-action@v12
+    # - name: tfsec
+    #   uses: aquasecurity/tfsec-action@v1.0.3
     #   with:
-    #     directory: ${{ env.TF_HOME_DIR }}
-    #     framework: terraform
+    #     working_directory: ${{ env.TF_HOME_DIR }}
+    #     github_token: ${{ env.GITHUB_TOKEN }}
+    #     additional_args: --config-file=../.tfsec.yml
+
+    - name: Checkov
+      uses: bridgecrewio/checkov-action@v12
+      with:
+        directory: ${{ env.TF_HOME_DIR }}
+        framework: terraform
