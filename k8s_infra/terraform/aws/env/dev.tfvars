@@ -6,7 +6,6 @@ public_subnets_cidr  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 private_subnets_cidr = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 
 # EKS cluster variables
-cluster_name          = "demo-eks-karpenter"
 kubernetes_version    = "1.30"
 ami_type_system       = "AL2_x86_64"
 instance_types_system = ["t3.small"]
@@ -22,8 +21,8 @@ labels_system = {
   environment = "dev"
   terraform   = "true"
 
-  "karpenter.sh/discovery"     = "demo-eks-karpenter"
-  "cluster/demo-eks-karpenter" = "shared"
+  "karpenter.sh/discovery" = "eks-dev"
+  "cluster/eks-dev"        = "shared"
 }
 
 taints_system = {
@@ -40,7 +39,7 @@ taints_system = {
 }
 
 node_security_group_tags_system = {
-  "karpenter.sh/discovery" = "demo-eks-karpenter"
+  "karpenter.sh/discovery" = "eks-dev"
 }
 
 tags_system = {

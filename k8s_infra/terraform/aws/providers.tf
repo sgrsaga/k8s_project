@@ -19,15 +19,12 @@ terraform {
     }
   }
   cloud {
-    organization = "eks_demo"
+    organization = "SGR-DEMO-EKS-YUM5FIM3HO4ZHRF"
     workspaces {
-      name = "ppe"
+      tags = ["SGR-DEMO-EKS-YUM5FIM3HO4ZHRF"]
     }
   }
 }
-
-
-
 
 provider "aws" {
   region = local.aws_region
