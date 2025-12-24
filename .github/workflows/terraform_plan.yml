@@ -2,9 +2,11 @@
 name: 'Terraform Plan'
 
 on:
-  push:
+  pull_request:
     branches:
-      - "dev*"
+      - "dev"
+      - "ppe"
+      - "prod"
 
 permissions:
   id-token: write       # <-- required for OIDC
