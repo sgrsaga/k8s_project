@@ -2,11 +2,10 @@
 name: 'Terraform Apply'
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
-      - ppe
-      - main
+      - "ppe"
+      - "prod"
 
 permissions:
   id-token: write       # <-- required for OIDC
