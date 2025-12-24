@@ -4,7 +4,6 @@ name: 'Terraform Plan'
 on:
   pull_request:
     branches:
-      - "dev"
       - "ppe"
       - "prod"
 
