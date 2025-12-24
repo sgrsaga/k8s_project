@@ -14,12 +14,12 @@ jobs:
     environment: >
       ${{
         startsWith(github.ref, 'refs/heads/prod') && 'prod' ||
-        startsWith(github.ref, 'refs/heads/release/') && 'ppe' ||
+        startsWith(github.ref, 'refs/heads/ppe/') && 'ppe' ||
         'dev'
       }}
     env:
-      TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'prod.tfvars' || startsWith(github.ref, 'refs/heads/release/') && 'ppe.tfvars' || 'dev.tfvars' }}
-      TF_HOME_DIR: k8s_infra/terraform/aws
+      TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'env/prod.tfvars' || startsWith(github.ref, 'refs/heads/ppe/') && 'env/ppe.tfvars' || 'env/dev.tfvars' }}
+      TF_HOME_DIR: k8s_infra/terraform/aws/
       GITHUB_TOKEN: ${{ github.token }}
 
 
