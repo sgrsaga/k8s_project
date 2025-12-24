@@ -1,9 +1,22 @@
+# Environment
+variable "env" {
+  type        = string
+  description = "Environment"
+  default     = "dev"
+}
+
 # AWS VPC variables
 
 variable "aws_region" {
   type        = string
   description = "AWS region"
   default     = "ap-south-1"
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "VPC CIDR"
+  default     = "10.0.0.0/16"
 }
 
 variable "public_subnets_cidr" {
@@ -24,6 +37,12 @@ variable "cluster_name" {
   type        = string
   description = "EKS cluster name"
   default     = "demo-eks-karpenter"
+}
+
+variable "kubernetes_version" {
+  type        = string
+  description = "Kubernetes version"
+  default     = "1.30"
 }
 
 variable "ami_type_system" {
