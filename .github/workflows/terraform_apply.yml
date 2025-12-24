@@ -89,6 +89,20 @@ jobs:
         path: ${{ env.TF_HOME_DIR }}/tfplan
         retention-days: 7
 
+    # Generates an Destroyexecution plan for Terraform
+    - name: Terraform Destroy Plan
+      id: terraform-destroy-plan
+      run: terraform plan -destroy -var-file="${TFVARS_FILE}" -out=tfdestroy.plan
+
+    # Upload Terraform destroyplan as artifact
+    - name: Upload Terraform destroy Plan
+      id: upload-tfdestroy-plan
+      uses: actions/upload-artifact@v4
+      with:
+        name: tfdestroy.plan
+        path: ${{ env.TF_HOME_DIR }}/tfdestroy.plan
+        retention-days: 7
+
     # On push to "dev", build or change infrastructure according to Terraform configuration files
     # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
