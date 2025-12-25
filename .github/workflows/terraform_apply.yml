@@ -18,12 +18,12 @@ jobs:
     environment: >
       ${{
         startsWith(github.ref, 'refs/heads/prod') && 'prod' ||
-        startsWith(github.ref, 'refs/heads/release/') && 'ppe' ||
+        startsWith(github.ref, 'refs/heads/ppe/') && 'ppe' ||
         'dev'
       }}
     env:
-      TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'prod.tfvars' || startsWith(github.ref, 'refs/heads/release/') && 'ppe.tfvars' || 'dev.tfvars' }}
-      TF_HOME_DIR: k8s_infra/terraform/aws
+      TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'env/prod.tfvars' || startsWith(github.ref, 'refs/heads/ppe/') && 'env/ppe.tfvars' || 'env/dev.tfvars' }}
+      TF_HOME_DIR: k8s_infra/terraform/aws/
       GITHUB_TOKEN: ${{ github.token }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -87,6 +87,20 @@ jobs:
       with:
         name: tfplan
         path: ${{ env.TF_HOME_DIR }}/tfplan
+        retention-days: 7
+
+    # Generates an Destroyexecution plan for Terraform
+    - name: Terraform Destroy Plan
+      id: terraform-destroy-plan
+      run: terraform plan -destroy -var-file="${TFVARS_FILE}" -out=tfdestroy.plan
+
+    # Upload Terraform destroyplan as artifact
+    - name: Upload Terraform destroy Plan
+      id: upload-tfdestroy-plan
+      uses: actions/upload-artifact@v4
+      with:
+        name: tfdestroy.plan
+        path: ${{ env.TF_HOME_DIR }}/tfdestroy.plan
         retention-days: 7
 
     # On push to "dev", build or change infrastructure according to Terraform configuration files

@@ -18,10 +18,16 @@ terraform {
       # source = "git::https://github.com/hashicorp/terraform-provider-helm.git?ref=1cbf08f6a306ab3cdff6079b87a61c7641b64f3b" # commit hash of version v3.1.1
     }
   }
+  cloud {
+    organization = "SGR-DEMO-EKS-YUM5FIM3HO4ZHRF"
+    workspaces {
+      tags = ["SGR-DEMO-EKS-YUM5FIM3HO4ZHRF"]
+    }
+  }
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = local.aws_region
 }
 
 # Wait for EKS cluster to be fully ready before configuring Kubernetes provider
@@ -45,7 +51,7 @@ provider "kubernetes" {
       module.eks.cluster_name
     ]
     env = {
-      AWS_REGION = var.aws_region
+      AWS_REGION = locals.aws_region
     }
   }
 }
@@ -65,7 +71,7 @@ provider "helm" {
         module.eks.cluster_name
       ]
       env = {
-        AWS_REGION = var.aws_region
+        AWS_REGION = locals.aws_region
       }
     }
   }
