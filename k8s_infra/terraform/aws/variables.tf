@@ -39,11 +39,11 @@ variable "private_subnets_cidr" {
 
 # EKS cluster variables
 
-variable "cluster_name" {
-  type        = string
-  description = "EKS cluster name"
-  default     = "demo-eks-karpenter"
-}
+# variable "cluster_name" {
+#   type        = string
+#   description = "EKS cluster name"
+#   default     = "demo-eks-karpenter"
+# }
 
 variable "kubernetes_version" {
   type        = string

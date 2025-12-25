@@ -3,7 +3,7 @@ module "eks" {
   # version = "~> 21.10.0"
   source = "git::https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=943fd575bcaddaf3b97101ecd7321e79ae67f68b" # commit hash of version 21.10.0
 
-  name               = local.project_name
+  name               = local.cluster_name
   kubernetes_version = local.kubernetes_version
 
   vpc_id                   = module.vpc.vpc_id
