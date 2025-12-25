@@ -14,7 +14,6 @@ locals {
   public_subnets_cidr  = var.public_subnets_cidr
 
   # EKS specific values
-  cluster_name                    = var.cluster_name
   kubernetes_version              = var.kubernetes_version
   cluster_enabled_log_types       = var.cluster_enabled_log_types
   ami_type_system                 = var.ami_type_system
