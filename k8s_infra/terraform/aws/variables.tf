@@ -5,6 +5,12 @@ variable "env" {
   default     = "dev"
 }
 
+variable "project_name" {
+  type        = string
+  description = "Project name"
+  default     = "aws-eks"
+}
+
 # AWS VPC variables
 
 variable "aws_region" {

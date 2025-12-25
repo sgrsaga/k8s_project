@@ -20,17 +20,17 @@ module "vpc" {
 
   # Tags required for EKS and Karpenter
   tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.project_name}" = "shared"
   }
 
   public_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.project_name}" = "shared"
     "kubernetes.io/role/elb"                      = "1"
   }
 
   private_subnet_tags = {
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.project_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = "1"
-    "karpenter.sh/discovery"                      = local.cluster_name
+    "karpenter.sh/discovery"                      = local.project_name
   }
 }

@@ -1,97 +1,97 @@
-#
-name: 'Terraform Plan'
+# #
+# name: 'Terraform Plan'
 
-on:
-  pull_request:
-    branches:
-      - "ppe"
-      - "main"
+# on:
+#   pull_request:
+#     branches:
+#       - "ppe"
+#       - "main"
 
-permissions:
-  id-token: write       # <-- required for OIDC
-  contents: read
+# permissions:
+#   id-token: write       # <-- required for OIDC
+#   contents: read
 
-jobs:
-  terraform:
-    name: 'Terraform'
-    runs-on: ubuntu-latest
-    environment: >
-      ${{
-        startsWith(github.ref, 'refs/heads/prod') && 'prod' ||
-        startsWith(github.ref, 'refs/heads/ppe/') && 'ppe' ||
-        'dev'
-      }}
-    env:
-      TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'env/prod.tfvars' || startsWith(github.ref, 'refs/heads/ppe/') && 'env/ppe.tfvars' || 'env/dev.tfvars' }}
-      TF_HOME_DIR: k8s_infra/terraform/aws/
-      GITHUB_TOKEN: ${{ github.token }}
+# jobs:
+#   terraform:
+#     name: 'Terraform'
+#     runs-on: ubuntu-latest
+#     environment: >
+#       ${{
+#         startsWith(github.ref, 'refs/heads/prod') && 'prod' ||
+#         startsWith(github.ref, 'refs/heads/ppe/') && 'ppe' ||
+#         'dev'
+#       }}
+#     env:
+#       TFVARS_FILE: ${{ startsWith(github.ref, 'refs/heads/prod') && 'env/prod.tfvars' || startsWith(github.ref, 'refs/heads/ppe/') && 'env/ppe.tfvars' || 'env/dev.tfvars' }}
+#       TF_HOME_DIR: k8s_infra/terraform/aws/
+#       GITHUB_TOKEN: ${{ github.token }}
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: k8s_infra/terraform/aws
+#     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+#     defaults:
+#       run:
+#         shell: bash
+#         working-directory: k8s_infra/terraform/aws
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials via OIDC
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::${{ secrets.ORG_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
-        aws-region: ap-south-1  # or your preferred region
+#     - name: Configure AWS credentials via OIDC
+#       uses: aws-actions/configure-aws-credentials@v4
+#       with:
+#         role-to-assume: arn:aws:iam::${{ secrets.ORG_ID }}:role/${{ secrets.OIDC_ROLE_NAME }}
+#         aws-region: ap-south-1  # or your preferred region
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: 1.14.3
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+#     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v3
+#       with:
+#         terraform_version: 1.14.3
+#         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      run: terraform fmt -check -recursive -diff
+#     # Checks that all Terraform configuration files adhere to a canonical format
+#     - name: Terraform Format
+#       run: terraform fmt -check -recursive -diff
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
+#     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+#     - name: Terraform Init
+#       run: terraform init -input=false
 
-    # Validates the configuration files in a directory, ensuring that the directory is syntactically valid and able to be used as a configuration.
-    - name: Terraform validate
-      run: terraform validate
+#     # Validates the configuration files in a directory, ensuring that the directory is syntactically valid and able to be used as a configuration.
+#     - name: Terraform validate
+#       run: terraform validate
       
-    # Setup TFLint
-    - name: Setup TFLint
-      uses: terraform-linters/setup-tflint@v4
-      with:
-        tflint_version: v0.54.0
+#     # Setup TFLint
+#     - name: Setup TFLint
+#       uses: terraform-linters/setup-tflint@v4
+#       with:
+#         tflint_version: v0.54.0
 
-    # Initialize TFLint
-    - name: TFLint init
-      run: tflint --init
+#     # Initialize TFLint
+#     - name: TFLint init
+#       run: tflint --init
 
-    # Run TFLint
-    - name: TFLint
-      run: tflint --recursive
+#     # Run TFLint
+#     - name: TFLint
+#       run: tflint --recursive
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false -var-file="${TFVARS_FILE}" -out=tfplan
+#     # Generates an execution plan for Terraform
+#     - name: Terraform Plan
+#       run: terraform plan -input=false -var-file="${TFVARS_FILE}" -out=tfplan
 
-    # Upload Terraform plan as artifact
-    - name: Upload Terraform Plan
-      uses: actions/upload-artifact@v4
-      with:
-        name: tfplan
-        path: ${{ env.TF_HOME_DIR }}/tfplan
-        retention-days: 7
+#     # Upload Terraform plan as artifact
+#     - name: Upload Terraform Plan
+#       uses: actions/upload-artifact@v4
+#       with:
+#         name: tfplan
+#         path: ${{ env.TF_HOME_DIR }}/tfplan
+#         retention-days: 7
 
-    # On push to "dev", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    # - name: Terraform Apply
-    #   run: terraform apply -auto-approve tfplan
+#     # On push to "dev", build or change infrastructure according to Terraform configuration files
+#       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+#     # - name: Terraform Apply
+#     #   run: terraform apply -auto-approve tfplan
 
-    # # Destroy
-    # - name: Terraform Destroy
-    #   run: terraform destroy -auto-approve
+#     # # Destroy
+#     # - name: Terraform Destroy
+#     #   run: terraform destroy -auto-approve
