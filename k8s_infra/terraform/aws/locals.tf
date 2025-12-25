@@ -2,6 +2,8 @@
 
 locals {
 
+  project_name = var.project_name
+
   # Region specific values
   aws_region = var.aws_region
   vpc_cidr   = var.vpc_cidr
