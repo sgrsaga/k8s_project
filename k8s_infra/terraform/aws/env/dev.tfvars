@@ -12,7 +12,7 @@ ami_type_system       = "AL2_x86_64"
 instance_types_system = ["t3.small"]
 capacity_type_system  = "ON_DEMAND"
 
-min_size_system     = 1
+min_size_system     = 2
 max_size_system     = 3
 desired_size_system = 2
 disk_size_system    = 80
