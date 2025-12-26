@@ -9,8 +9,8 @@ private_subnets_cidr = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 # EKS cluster variables
 cluster_name          = "aws-eks-ppe"
 kubernetes_version    = "1.32"
-ami_type_system       = "AL2_x86_64"
-instance_types_system = ["t3.small"]
+ami_type_system       = "AL2023_x86_64"
+instance_types_system = ["t3.medium"]
 capacity_type_system  = "ON_DEMAND"
 
 min_size_system     = 2
