@@ -8,9 +8,9 @@ private_subnets_cidr = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 
 # EKS cluster variables
 cluster_name          = "aws-eks-dev"
-kubernetes_version    = "1.32"
+kubernetes_version    = "1.33"
 ami_type_system       = "AL2023_x86_64_STANDARD"
-instance_types_system = ["t3.medium"]
+instance_types_system = ["t3.large"]
 capacity_type_system  = "ON_DEMAND"
 
 min_size_system     = 2
