@@ -18,6 +18,18 @@ module "eks" {
   # Enable control plane logs
   enabled_log_types = local.cluster_enabled_log_types
 
+  # Addons
+  addons = {
+    coredns                = {}
+    eks-pod-identity-agent = {
+      before_compute = true
+    }
+    kube-proxy             = {}
+    vpc-cni                = {
+      before_compute = true
+    }
+  }
+
   # Small on-demand system node group
   eks_managed_node_groups = {
     system = {
