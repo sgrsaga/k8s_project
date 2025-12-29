@@ -50,13 +50,9 @@ module "eks" {
 
       iam_role_additional_policies = {
         ssm            = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-        ebs            = "arn:aws:iam::aws:policy/AmazonEBSVolumeManagement"
         ec2            = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
         eks            = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
         eks-cni        = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-        eks-autoscaler = "arn:aws:iam::aws:policy/AmazonEKS_Autoscaler_Policy"
-        eks-coredns    = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-        eks-kube-proxy = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
       }
       # Optional: taint to keep app pods off system nodes
       # Then your core addons tolerate this taint.
