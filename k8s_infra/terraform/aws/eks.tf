@@ -20,12 +20,18 @@ module "eks" {
 
   # Addons
   addons = {
-    coredns = {}
+    coredns = {
+      most_recent = true
+    }
     eks-pod-identity-agent = {
+      most_recent    = true
       before_compute = true
     }
-    kube-proxy = {}
+    kube-proxy = {
+      most_recent = true
+    }
     vpc-cni = {
+      most_recent    = true
       before_compute = true
     }
   }
@@ -49,10 +55,10 @@ module "eks" {
       labels = local.labels_system
 
       iam_role_additional_policies = {
-        ssm            = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-        ec2            = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-        eks            = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-        eks-cni        = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+        ssm     = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ec2     = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+        eks     = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+        eks-cni = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
       }
       # Optional: taint to keep app pods off system nodes
       # Then your core addons tolerate this taint.
