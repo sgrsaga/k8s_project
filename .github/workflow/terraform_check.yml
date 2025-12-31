@@ -51,7 +51,7 @@ jobs:
     # # Validates the configuration files in a directory, ensuring that the directory is syntactically valid and able to be used as a configuration.
     # - name: Terraform validate
     #   run: terraform validate -no-color
-      
+
     # Setup TFLint
     - name: Setup TFLint
       uses: terraform-linters/setup-tflint@v4
