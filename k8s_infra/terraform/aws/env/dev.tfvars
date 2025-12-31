@@ -1,5 +1,5 @@
 env          = "dev"
-project_name = "aws-eks-dev-project"
+project_name  = "aws-eks-dev-project"
 # AWS VPC variables
 aws_region           = "ap-south-1"
 vpc_cidr             = "10.0.0.0/16"

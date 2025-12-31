@@ -19,7 +19,7 @@ locals {
   cluster_enabled_log_types       = var.cluster_enabled_log_types
   ami_type_system                 = var.ami_type_system
   instance_types_system           = var.instance_types_system
-  min_size_system                 = var.min_size_system
+  min_size_system                  = var.min_size_system
   max_size_system                 = var.max_size_system
   desired_size_system             = var.desired_size_system
   capacity_type_system            = var.capacity_type_system
